@@ -1,0 +1,680 @@
+/* ===========================
+   GLOBAL STYLES & RESET
+   =========================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Color Palette */
+    --primary-blue: #3b5998;
+    --dark-blue: #2c4373;
+    --light-blue: #5a7bc4;
+    --accent-blue: #4267B2;
+    --text-dark: #1a1a1a;
+    --text-medium: #4a4a4a;
+    --text-light: #666666;
+    --border-color: #d1d1d1;
+    --bg-light: #f8f9fa;
+    --white: #ffffff;
+    --discount-red: #d32f2f;
+    
+    /* Typography */
+    --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-secondary: Arial, sans-serif;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+    color: var(--text-dark);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* ===========================
+   APP CONTAINER LAYOUT
+   =========================== */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* ===========================
+   CONTROL PANEL
+   =========================== */
+.control-panel {
+    width: 400px;
+    background: var(--white);
+    box-shadow: var(--shadow-lg);
+    overflow-y: auto;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 1000;
+    transition: transform var(--transition-normal);
+}
+
+.control-panel.hidden {
+    transform: translateX(-100%);
+}
+
+.panel-header {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+    color: var(--white);
+    padding: var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.panel-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.toggle-panel-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: var(--white);
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition-fast);
+}
+
+.toggle-panel-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.panel-content {
+    padding: var(--spacing-md);
+}
+
+/* ===========================
+   FORM SECTIONS
+   =========================== */
+.form-section {
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.form-section:last-child {
+    border-bottom: none;
+}
+
+.form-section h3 {
+    color: var(--primary-blue);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: var(--spacing-sm);
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-medium);
+    margin-bottom: 0.25rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.625rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.9375rem;
+    font-family: var(--font-primary);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(59, 89, 152, 0.1);
+}
+
+/* Line Items */
+.line-item {
+    background: var(--bg-light);
+    padding: var(--spacing-sm);
+    border-radius: 8px;
+    margin-bottom: var(--spacing-sm);
+    position: relative;
+}
+
+.line-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xs);
+}
+
+.line-item-number {
+    font-weight: 600;
+    color: var(--primary-blue);
+}
+
+.btn-remove {
+    background: var(--discount-red);
+    color: var(--white);
+    border: none;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.btn-remove:hover {
+    background: #b71c1c;
+}
+
+/* ===========================
+   BUTTONS
+   =========================== */
+.btn-primary,
+.btn-secondary,
+.btn-add {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    margin-bottom: var(--spacing-xs);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+    color: var(--white);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+    background: var(--white);
+    color: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
+}
+
+.btn-secondary:hover {
+    background: var(--primary-blue);
+    color: var(--white);
+}
+
+.btn-add {
+    background: var(--bg-light);
+    color: var(--primary-blue);
+    border: 2px dashed var(--border-color);
+}
+
+.btn-add:hover {
+    border-color: var(--primary-blue);
+    background: rgba(59, 89, 152, 0.05);
+}
+
+/* ===========================
+   INVOICE CONTAINER
+   =========================== */
+.invoice-container {
+    flex: 1;
+    margin-left: 400px;
+    padding: var(--spacing-xl);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    transition: margin-left var(--transition-normal);
+}
+
+.control-panel.hidden ~ .invoice-container {
+    margin-left: 0;
+}
+
+/* ===========================
+   INVOICE DESIGN
+   =========================== */
+.invoice {
+    background: var(--white);
+    width: 100%;
+    max-width: 850px;
+    box-shadow: var(--shadow-lg);
+    border-radius: 12px;
+    overflow: hidden;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Invoice Header */
+.invoice-header {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    position: relative;
+}
+
+.invoice-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-radius: 0 0 0 100%;
+}
+
+.company-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    position: relative;
+    z-index: 1;
+}
+
+.logo-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #4db8a8 0%, #2d8b7e 100%);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.logo-icon::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+}
+
+.company-info h1 {
+    color: var(--white);
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+}
+
+.company-info p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+/* Quotation Title */
+.quotation-title {
+    background: var(--white);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    text-align: center;
+    border-bottom: 3px solid var(--primary-blue);
+}
+
+.quotation-title h2 {
+    color: var(--primary-blue);
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+/* Bill To Section */
+.bill-to-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    background: var(--white);
+}
+
+.bill-to h3 {
+    color: var(--primary-blue);
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    letter-spacing: 0.5px;
+}
+
+.bill-to p,
+.invoice-dates p {
+    font-size: 0.9375rem;
+    margin-bottom: 0.375rem;
+    color: var(--text-dark);
+}
+
+.bill-to p strong,
+.invoice-dates p strong {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.invoice-dates {
+    text-align: right;
+}
+
+/* Project Details */
+.project-details {
+    padding: var(--spacing-md) var(--spacing-xl);
+    background: var(--bg-light);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.project-details p {
+    font-size: 0.9375rem;
+    margin-bottom: 0.375rem;
+    color: var(--text-dark);
+}
+
+.project-details p strong {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* Items Table */
+.items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.items-table thead {
+    background: var(--primary-blue);
+    color: var(--white);
+}
+
+.items-table thead th {
+    padding: var(--spacing-sm) var(--spacing-xl);
+    text-align: left;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.3px;
+}
+
+.items-table thead th:last-child {
+    text-align: right;
+}
+
+.items-table tbody td {
+    padding: var(--spacing-sm) var(--spacing-xl);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9375rem;
+}
+
+.items-table tbody td:last-child {
+    text-align: right;
+    font-weight: 600;
+}
+
+.items-table tbody tr:last-child td {
+    border-bottom: 2px solid var(--primary-blue);
+}
+
+.items-table ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.items-table li {
+    margin-bottom: 0.25rem;
+    line-height: 1.5;
+}
+
+/* Totals Section */
+.totals-section {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    background: var(--white);
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.total-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.total-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.discount-row {
+    background: rgba(211, 47, 47, 0.05);
+    margin: var(--spacing-xs) calc(-1 * var(--spacing-xl));
+    padding: var(--spacing-sm) var(--spacing-xl);
+}
+
+.discount-value {
+    color: var(--discount-red);
+}
+
+.grand-total {
+    border-bottom: none;
+    border-top: 3px solid var(--primary-blue);
+    padding-top: var(--spacing-md);
+    margin-top: var(--spacing-xs);
+}
+
+.grand-total .total-label {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+.grand-total .total-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+/* ===========================
+   PRINT STYLES
+   =========================== */
+@media print {
+    body {
+        background: var(--white);
+    }
+    
+    .control-panel {
+        display: none !important;
+    }
+    
+    .invoice-container {
+        margin-left: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .invoice {
+        box-shadow: none;
+        border-radius: 0;
+        max-width: 100%;
+        page-break-after: always;
+    }
+    
+    .invoice-header::before {
+        display: none;
+    }
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+@media (max-width: 1024px) {
+    .control-panel {
+        width: 350px;
+    }
+    
+    .invoice-container {
+        margin-left: 350px;
+        padding: var(--spacing-md);
+    }
+}
+
+@media (max-width: 768px) {
+    .control-panel {
+        width: 100%;
+        transform: translateX(-100%);
+    }
+    
+    .control-panel.active {
+        transform: translateX(0);
+    }
+    
+    .invoice-container {
+        margin-left: 0;
+        padding: var(--spacing-sm);
+    }
+    
+    .bill-to-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .invoice-dates {
+        text-align: left;
+    }
+    
+    .company-info h1 {
+        font-size: 1.25rem;
+    }
+    
+    .quotation-title h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* ===========================
+   FLOATING ACTION BUTTON (Mobile)
+   =========================== */
+.fab {
+    display: none;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+    cursor: pointer;
+    z-index: 999;
+    transition: transform var(--transition-fast);
+}
+
+.fab:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .fab {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* ===========================
+   ANIMATIONS
+   =========================== */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.control-panel.active {
+    animation: slideIn var(--transition-normal);
+}
+
+/* ===========================
+   SCROLLBAR STYLING
+   =========================== */
+.control-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.control-panel::-webkit-scrollbar-track {
+    background: var(--bg-light);
+}
+
+.control-panel::-webkit-scrollbar-thumb {
+    background: var(--primary-blue);
+    border-radius: 4px;
+}
+
+.control-panel::-webkit-scrollbar-thumb:hover {
+    background: var(--dark-blue);
+}

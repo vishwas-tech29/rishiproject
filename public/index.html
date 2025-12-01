@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Generator - Professional Quotation System</title>
+    <meta name="description" content="Professional invoice and quotation generator with customizable templates">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Control Panel -->
+        <div class="control-panel" id="controlPanel">
+            <div class="panel-header">
+                <h2>Invoice Generator</h2>
+                <button class="toggle-panel-btn" id="togglePanel">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="panel-content">
+                <!-- Company Details -->
+                <div class="form-section">
+                    <h3>Company Details</h3>
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" id="companyName" value="PRANAYUV TECHNOLOGIES PVT LTD">
+                    </div>
+                    <div class="form-group">
+                        <label>Tagline</label>
+                        <input type="text" id="companyTagline" value="Empowering Lives through Innovation">
+                    </div>
+                    <div class="form-group">
+                        <label>Logo Text (Initials)</label>
+                        <input type="text" id="logoText" value="PV" maxlength="3">
+                    </div>
+                </div>
+
+                <!-- Invoice Details -->
+                <div class="form-section">
+                    <h3>Invoice Details</h3>
+                    <div class="form-group">
+                        <label>Quotation Number</label>
+                        <input type="text" id="quotationNumber" value="Q2025001">
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="invoiceDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Valid Until</label>
+                        <input type="date" id="validUntil">
+                    </div>
+                </div>
+
+                <!-- Client Details -->
+                <div class="form-section">
+                    <h3>Client Details</h3>
+                    <div class="form-group">
+                        <label>Client Name</label>
+                        <input type="text" id="clientName" value="Apna Advertising">
+                    </div>
+                    <div class="form-group">
+                        <label>Company</label>
+                        <input type="text" id="clientCompany" value="Apna Advertising Pvt Ltd">
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" id="clientAddress" value="Pahar Ganj, New Delhi 110055">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact</label>
+                        <input type="text" id="clientContact" value="9389271138">
+                    </div>
+                </div>
+
+                <!-- Project Details -->
+                <div class="form-section">
+                    <h3>Project Details</h3>
+                    <div class="form-group">
+                        <label>Project Name</label>
+                        <input type="text" id="projectName" value="Website development (Up to 5 pages)">
+                    </div>
+                    <div class="form-group">
+                        <label>Delivery Timeline</label>
+                        <input type="text" id="deliveryTime" value="3-4 weeks from advance & assets">
+                    </div>
+                    <div class="form-group">
+                        <label>Maintenance</label>
+                        <input type="text" id="maintenance" value="18 months included (1 hour/month basic updates)">
+                    </div>
+                </div>
+
+                <!-- Line Items -->
+                <div class="form-section">
+                    <h3>Line Items</h3>
+                    <div id="lineItemsContainer"></div>
+                    <button class="btn-add" id="addLineItem">+ Add Item</button>
+                </div>
+
+                <!-- Pricing -->
+                <div class="form-section">
+                    <h3>Pricing</h3>
+                    <div class="form-group">
+                        <label>Standard Package Cost (₹)</label>
+                        <input type="number" id="packageCost" value="20000" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label>Discount Name</label>
+                        <input type="text" id="discountName" value="Inaugural Client Discount (FIRST50)">
+                    </div>
+                    <div class="form-group">
+                        <label>Discount Amount (₹)</label>
+                        <input type="number" id="discountAmount" value="8000" step="0.01">
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="form-section">
+                    <button class="btn-primary" id="updateInvoice">Update Invoice</button>
+                    <button class="btn-secondary" id="printInvoice">Print / Save PDF</button>
+                    <button class="btn-secondary" id="resetForm">Reset to Default</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invoice Preview -->
+        <div class="invoice-container" id="invoicePreview">
+            <div class="invoice">
+                <!-- Header -->
+                <div class="invoice-header">
+                    <div class="company-logo">
+                        <div class="logo-icon" id="logoIcon">PV</div>
+                        <div class="company-info">
+                            <h1 id="displayCompanyName">PRANAYUV TECHNOLOGIES PVT LTD</h1>
+                            <p id="displayTagline">Empowering Lives through Innovation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quotation Title -->
+                <div class="quotation-title">
+                    <h2>Quotation # <span id="displayQuotationNumber">Q2025001</span></h2>
+                </div>
+
+                <!-- Bill To Section -->
+                <div class="bill-to-section">
+                    <div class="bill-to">
+                        <h3>BILL TO / CLIENT</h3>
+                        <p><strong>Client Name:</strong> <span id="displayClientName">Apna Advertising</span></p>
+                        <p><strong>Company:</strong> <span id="displayClientCompany">Apna Advertising Pvt Ltd</span></p>
+                        <p><strong>Address:</strong> <span id="displayClientAddress">Pahar Ganj, New Delhi 110055</span></p>
+                        <p><strong>Contact:</strong> <span id="displayClientContact">9389271138</span></p>
+                    </div>
+                    <div class="invoice-dates">
+                        <p><strong>Date:</strong> <span id="displayDate">September 17, 2025</span></p>
+                        <p><strong>Valid Until:</strong> <span id="displayValidUntil">September 22, 2025</span></p>
+                    </div>
+                </div>
+
+                <!-- Project Details -->
+                <div class="project-details">
+                    <p><strong>Project:</strong> <span id="displayProjectName">Website development (Up to 5 pages)</span></p>
+                    <p><strong>Delivery:</strong> <span id="displayDelivery">3-4 weeks from advance & assets</span></p>
+                    <p><strong>Maintenance:</strong> <span id="displayMaintenance">18 months included (1 hour/month basic updates)</span></p>
+                </div>
+
+                <!-- Items Table -->
+                <table class="items-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="itemsTableBody">
+                        <!-- Items will be inserted here -->
+                    </tbody>
+                </table>
+
+                <!-- Totals -->
+                <div class="totals-section">
+                    <div class="total-row">
+                        <span class="total-label">Standard Package Cost</span>
+                        <span class="total-value" id="displayPackageCost">₹20,000.00</span>
+                    </div>
+                    <div class="total-row discount-row">
+                        <span class="total-label" id="displayDiscountName">Inaugural Client Discount (FIRST50)</span>
+                        <span class="total-value discount-value" id="displayDiscountAmount">- ₹8,000.00</span>
+                    </div>
+                    <div class="total-row grand-total">
+                        <span class="total-label">GRAND TOTAL</span>
+                        <span class="total-value" id="displayGrandTotal">₹12,000.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
