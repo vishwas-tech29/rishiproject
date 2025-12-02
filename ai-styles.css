@@ -1134,6 +1134,12 @@ textarea:focus {
     }
 }
 
+/* Hide API Key Modal */
+#apiKeyModal {
+    display: none !important;
+}
+
+
 /* ========================================
    Pranayuv Template Styles
    ======================================== */
@@ -1144,14 +1150,17 @@ textarea:focus {
     font-family: 'Calibri', 'Arial', sans-serif;
     padding: 0;
     position: relative;
-    max-width: 800px; /* A4 width approx */
+    max-width: 800px;
+    /* A4 width approx */
     margin: 0 auto;
-    box-shadow: none; /* Remove shadow for print/pdf */
+    box-shadow: none;
+    /* Remove shadow for print/pdf */
 }
 
 .pranayuv-template .top-bar {
     height: 40px;
-    background-color: #1e3a8a; /* Dark Blue */
+    background-color: #1e3a8a;
+    /* Dark Blue */
     width: 100%;
 }
 
@@ -1160,7 +1169,8 @@ textarea:focus {
     align-items: center;
     padding: 20px 40px;
     gap: 20px;
-    border-bottom: none; /* Override default */
+    border-bottom: none;
+    /* Override default */
     margin-bottom: 0;
 }
 
@@ -1185,7 +1195,8 @@ textarea:focus {
     position: absolute;
     top: 5px;
     left: 10px;
-    color: #0ea5e9; /* Light blue */
+    color: #0ea5e9;
+    /* Light blue */
     font-size: 40px;
 }
 
@@ -1193,7 +1204,8 @@ textarea:focus {
     position: absolute;
     bottom: 5px;
     right: 10px;
-    color: #1e3a8a; /* Dark blue */
+    color: #1e3a8a;
+    /* Dark blue */
     font-size: 30px;
 }
 
@@ -1214,7 +1226,8 @@ textarea:focus {
 
 .pranayuv-template .blue-divider {
     height: 4px;
-    background-color: #3b82f6; /* Blue */
+    background-color: #3b82f6;
+    /* Blue */
     width: 100%;
     margin-bottom: 30px;
 }
@@ -1225,7 +1238,8 @@ textarea:focus {
 }
 
 .pranayuv-template .doc-title h2 {
-    color: #2563eb; /* Blue */
+    color: #2563eb;
+    /* Blue */
     font-size: 28px;
     font-weight: 500;
     margin: 0;

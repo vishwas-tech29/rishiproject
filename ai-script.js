@@ -15,7 +15,7 @@ class AIBusinessAutomation {
 
     init() {
         this.setupEventListeners();
-        this.checkApiKey();
+        // this.checkApiKey(); // Removed
         this.updateCharCount();
         this.setDefaultDates();
         this.loadHistory();
@@ -52,9 +52,9 @@ class AIBusinessAutomation {
         document.getElementById('downloadPDF')?.addEventListener('click', () => this.downloadPDF('quotation'));
         document.getElementById('downloadInvoicePDF')?.addEventListener('click', () => this.downloadPDF('invoice'));
 
-        // API Key modal
-        document.getElementById('saveApiKey')?.addEventListener('click', () => this.saveApiKey());
-        document.getElementById('closeModal')?.addEventListener('click', () => this.closeModal());
+        // API Key modal - Removed
+        // document.getElementById('saveApiKey')?.addEventListener('click', () => this.saveApiKey());
+        // document.getElementById('closeModal')?.addEventListener('click', () => this.closeModal());
 
         // History filters
         document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -125,6 +125,10 @@ class AIBusinessAutomation {
     // AI Integration
     // ========================================
 
+    // ========================================
+    // AI Simulation (No API Key Required)
+    // ========================================
+
     async generateQuotation() {
         const description = document.getElementById('projectDescription').value.trim();
         const clientName = document.getElementById('clientName').value.trim();
@@ -137,15 +141,15 @@ class AIBusinessAutomation {
             return;
         }
 
-        if (!this.apiKey) {
-            this.showApiKeyModal();
-            return;
-        }
+        // No API Key check needed anymore
 
         this.showAIStatus('AI is analyzing your project...');
 
         try {
-            const quotationData = await this.callGeminiAPI(description, budgetRange);
+            // Simulate network delay for "AI" feel
+            await new Promise(resolve => setTimeout(resolve, 1500));
+
+            const quotationData = this.simulateAI(description, budgetRange);
 
             const quotation = {
                 id: this.generateId(),
@@ -153,9 +157,10 @@ class AIBusinessAutomation {
                 number: `QUO-${new Date().getFullYear()}-${String(this.quotations.length + 1).padStart(3, '0')}`,
                 date: new Date().toISOString(),
                 client: {
-                    name: clientName,
-                    email: clientEmail,
-                    company: clientCompany
+                    name: clientName || 'Valued Client',
+                    email: clientEmail || '',
+                    company: clientCompany || '',
+                    address: 'Not Provided'
                 },
                 project: quotationData,
                 status: 'draft'
@@ -181,91 +186,103 @@ class AIBusinessAutomation {
             return;
         }
 
-        if (!this.apiKey) {
-            this.showApiKeyModal();
-            return;
-        }
-
         this.showAIStatus('AI is enhancing your description...');
 
-        try {
-            const prompt = `Enhance and expand this project description to be more professional and detailed. Keep it concise but comprehensive:\n\n${description}`;
+        // Simulate delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
-            const enhanced = await this.callGeminiAPI(prompt, '', true);
-            document.getElementById('projectDescription').value = enhanced;
-            this.updateCharCount();
-            this.hideAIStatus();
+        const enhancements = [
+            "The solution will be built with scalability and performance in mind.",
+            "We will ensure a modern, responsive user interface.",
+            "Includes comprehensive testing and quality assurance.",
+            "Optimized for search engines and user experience.",
+            "Secure and robust architecture."
+        ];
 
-            this.showNotification('Description enhanced!', 'success');
-        } catch (error) {
-            this.hideAIStatus();
-            this.showNotification('Error enhancing description: ' + error.message, 'error');
-        }
+        const randomEnhancement = enhancements[Math.floor(Math.random() * enhancements.length)];
+        const enhanced = `${description}\n\nKey Features:\n- ${randomEnhancement}\n- Implementation of industry best practices.\n- Focus on high conversion and user engagement.`;
+
+        document.getElementById('projectDescription').value = enhanced;
+        this.updateCharCount();
+        this.hideAIStatus();
+
+        this.showNotification('Description enhanced!', 'success');
     }
 
-    async callGeminiAPI(description, budgetRange, enhanceOnly = false) {
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${this.apiKey}`;
+    simulateAI(description, budgetRange) {
+        const descLower = description.toLowerCase();
+        let projectType = 'Custom Project';
+        let items = [];
+        let deliverables = [];
 
-        let prompt;
-        if (enhanceOnly) {
-            prompt = description;
+        // Simple keyword matching logic
+        if (descLower.includes('website') || descLower.includes('web')) {
+            projectType = 'Web Development';
+            items = [
+                { description: 'UI/UX Design & Prototyping', amount: 15000 },
+                { description: 'Frontend Development (React/HTML5)', amount: 25000 },
+                { description: 'Backend Setup & API Integration', amount: 20000 },
+                { description: 'SEO Optimization & Performance Tuning', amount: 8000 },
+                { description: 'Deployment & Server Setup', amount: 5000 }
+            ];
+            deliverables = ['Responsive Website', 'Admin Dashboard', 'Source Code', 'Documentation'];
+        } else if (descLower.includes('app') || descLower.includes('mobile')) {
+            projectType = 'Mobile App Development';
+            items = [
+                { description: 'Mobile App UI/UX Design', amount: 25000 },
+                { description: 'Native App Development (iOS/Android)', amount: 45000 },
+                { description: 'API Development', amount: 30000 },
+                { description: 'App Store Submission', amount: 10000 }
+            ];
+            deliverables = ['iOS App', 'Android App', 'Admin Panel', 'API Documentation'];
+        } else if (descLower.includes('ai') || descLower.includes('intelligence')) {
+            projectType = 'AI Solution';
+            items = [
+                { description: 'Data Analysis & Preparation', amount: 30000 },
+                { description: 'Model Training & Fine-tuning', amount: 50000 },
+                { description: 'AI Integration API', amount: 25000 },
+                { description: 'Testing & Validation', amount: 15000 }
+            ];
+            deliverables = ['Trained Model', 'Inference API', 'Performance Report'];
         } else {
-            prompt = `You are a professional business consultant. Based on the following project description, create a detailed quotation breakdown.
-
-Project Description:
-${description}
-
-Budget Range: ${budgetRange ? '₹' + budgetRange : 'Not specified'}
-
-Please provide a JSON response with the following structure:
-{
-    "projectName": "Brief project name",
-    "summary": "2-3 sentence project summary",
-    "deliverables": ["deliverable 1", "deliverable 2", ...],
-    "timeline": "Estimated timeline",
-    "lineItems": [
-        {"description": "Item name", "amount": 0000},
-        ...
-    ],
-    "totalAmount": 0000,
-    "terms": ["term 1", "term 2", ...]
-}
-
-Make it professional and realistic. Ensure amounts are in INR and reasonable.`;
+            // Default generic project
+            items = [
+                { description: 'Project Planning & Strategy', amount: 10000 },
+                { description: 'Core Development Phase', amount: 30000 },
+                { description: 'Quality Assurance', amount: 10000 },
+                { description: 'Final Delivery & Handover', amount: 5000 }
+            ];
+            deliverables = ['Project Plan', 'Completed Solution', 'Documentation'];
         }
 
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [{
-                        text: prompt
-                    }]
-                }]
-            })
-        });
+        // Adjust pricing based on budget range if provided
+        let multiplier = 1;
+        if (budgetRange === '5000-10000') multiplier = 0.2;
+        if (budgetRange === '10000-25000') multiplier = 0.4;
+        if (budgetRange === '25000-50000') multiplier = 0.8;
+        if (budgetRange === '50000-100000') multiplier = 1.2;
+        if (budgetRange === '100000+') multiplier = 2.0;
 
-        if (!response.ok) {
-            throw new Error('API request failed. Please check your API key.');
-        }
+        const finalItems = items.map(item => ({
+            description: item.description,
+            amount: Math.round(item.amount * multiplier)
+        }));
 
-        const data = await response.json();
-        const text = data.candidates[0].content.parts[0].text;
+        const totalAmount = finalItems.reduce((sum, item) => sum + item.amount, 0);
 
-        if (enhanceOnly) {
-            return text.trim();
-        }
-
-        // Extract JSON from response
-        const jsonMatch = text.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-            return JSON.parse(jsonMatch[0]);
-        } else {
-            throw new Error('Invalid response format from AI');
-        }
+        return {
+            projectName: `${projectType} for ${document.getElementById('clientName').value || 'Client'}`,
+            summary: `A comprehensive ${projectType} tailored to specific business requirements. This solution includes all necessary components for a successful deployment.`,
+            deliverables: deliverables,
+            timeline: '4-6 Weeks',
+            lineItems: finalItems,
+            totalAmount: totalAmount,
+            terms: [
+                '50% Advance Payment Required',
+                'Valid for 15 days from date of issue',
+                'Additional changes will be charged separately'
+            ]
+        };
     }
 
     // ========================================
@@ -649,34 +666,15 @@ Make it professional and realistic. Ensure amounts are in INR and reasonable.`;
     }
 
     // ========================================
-    // API Key Management
+    // API Key Management (Removed)
     // ========================================
 
-    checkApiKey() {
-        if (!this.apiKey) {
-            setTimeout(() => this.showApiKeyModal(), 1000);
-        }
-    }
-
-    showApiKeyModal() {
-        document.getElementById('apiKeyModal').classList.add('active');
-    }
-
-    closeModal() {
-        document.getElementById('apiKeyModal').classList.remove('active');
-    }
-
-    saveApiKey() {
-        const apiKey = document.getElementById('apiKeyInput').value.trim();
-        if (apiKey) {
-            this.apiKey = apiKey;
-            localStorage.setItem('gemini_api_key', apiKey);
-            this.closeModal();
-            this.showNotification('API key saved successfully!', 'success');
-        } else {
-            this.showNotification('Please enter a valid API key', 'error');
-        }
-    }
+    /*
+    checkApiKey() { ... }
+    showApiKeyModal() { ... }
+    closeModal() { ... }
+    saveApiKey() { ... }
+    */
 
     // ========================================
     // UI Feedback
