@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Business Automation - Quotation & Invoice Generator</title>
+    <meta name="description" content="AI-powered quotation and invoice generator with smart automation">
+    <link rel="stylesheet" href="ai-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M16 2L2 9L16 16L30 9L16 2Z" fill="url(#gradient1)" />
+                        <path d="M2 23L16 30L30 23L16 16L2 23Z" fill="url(#gradient2)" />
+                        <defs>
+                            <linearGradient id="gradient1" x1="2" y1="2" x2="30" y2="16">
+                                <stop offset="0%" stop-color="#667eea" />
+                                <stop offset="100%" stop-color="#764ba2" />
+                            </linearGradient>
+                            <linearGradient id="gradient2" x1="2" y1="16" x2="30" y2="30">
+                                <stop offset="0%" stop-color="#f093fb" />
+                                <stop offset="100%" stop-color="#f5576c" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">AI Business Automation</span>
+            </div>
+            <div class="nav-links">
+                <button class="nav-btn active" data-view="quotation">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                    </svg>
+                    Quotation
+                </button>
+                <button class="nav-btn" data-view="invoice">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <line x1="9" y1="9" x2="15" y2="9" />
+                        <line x1="9" y1="15" x2="15" y2="15" />
+                    </svg>
+                    Invoice
+                </button>
+                <button class="nav-btn" data-view="history">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    History
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Quotation View -->
+        <div class="view-container active" id="quotationView">
+            <div class="content-grid">
+                <!-- AI Input Panel -->
+                <div class="panel ai-panel">
+                    <div class="panel-header">
+                        <h2>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                            </svg>
+                            AI Quotation Generator
+                        </h2>
+                        <span class="ai-badge">Powered by Gemini 3.2</span>
+                    </div>
+
+                    <div class="panel-content">
+                        <!-- Quick Start Templates -->
+                        <div class="template-section">
+                            <label class="section-label">Quick Start Templates</label>
+                            <div class="template-grid">
+                                <button class="template-card" data-template="web-dev">
+                                    <div class="template-icon">🌐</div>
+                                    <div class="template-name">Web Development</div>
+                                </button>
+                                <button class="template-card" data-template="mobile-app">
+                                    <div class="template-icon">📱</div>
+                                    <div class="template-name">Mobile App</div>
+                                </button>
+                                <button class="template-card" data-template="ai-solution">
+                                    <div class="template-icon">🤖</div>
+                                    <div class="template-name">AI Solution</div>
+                                </button>
+                                <button class="template-card" data-template="consulting">
+                                    <div class="template-icon">💼</div>
+                                    <div class="template-name">Consulting</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- AI Input -->
+                        <div class="form-group">
+                            <label class="section-label">Describe Your Project</label>
+                            <textarea id="projectDescription" class="ai-textarea"
+                                placeholder="Example: I need a modern e-commerce website with payment integration, product catalog, user authentication, and admin dashboard. Target audience is fashion enthusiasts aged 18-35..."
+                                rows="6"></textarea>
+                            <div class="textarea-footer">
+                                <span class="char-count">0 / 1000</span>
+                                <button class="btn-enhance" id="enhanceBtn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="11" cy="11" r="8" />
+                                        <path d="m21 21-4.35-4.35" />
+                                    </svg>
+                                    Enhance with AI
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Client Information -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Client Name</label>
+                                <input type="text" id="clientName" placeholder="Enter client name">
+                            </div>
+                            <div class="form-group">
+                                <label>Client Email</label>
+                                <input type="email" id="clientEmail" placeholder="client@example.com">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Company Name</label>
+                                <input type="text" id="clientCompany" placeholder="Company name">
+                            </div>
+                            <div class="form-group">
+                                <label>Budget Range</label>
+                                <select id="budgetRange">
+                                    <option value="">Select budget range</option>
+                                    <option value="5000-10000">₹5,000 - ₹10,000</option>
+                                    <option value="10000-25000">₹10,000 - ₹25,000</option>
+                                    <option value="25000-50000">₹25,000 - ₹50,000</option>
+                                    <option value="50000-100000">₹50,000 - ₹1,00,000</option>
+                                    <option value="100000+">₹1,00,000+</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Generate Button -->
+                        <button class="btn-primary btn-generate" id="generateQuotation">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                            </svg>
+                            Generate AI Quotation
+                            <div class="btn-shine"></div>
+                        </button>
+
+                        <!-- AI Status -->
+                        <div class="ai-status" id="aiStatus" style="display: none;">
+                            <div class="status-loader"></div>
+                            <span class="status-text">AI is analyzing your project...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Panel -->
+                <div class="panel preview-panel">
+                    <div class="panel-header">
+                        <h2>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                            Live Preview
+                        </h2>
+                        <div class="header-actions">
+                            <button class="btn-icon" id="editQuotation" title="Edit">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                </svg>
+                            </button>
+                            <button class="btn-icon" id="downloadPDF" title="Download PDF">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="panel-content">
+                        <div class="document-preview" id="quotationPreview">
+                            <div class="preview-placeholder">
+                                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                    <polyline points="14 2 14 8 20 8" />
+                                    <line x1="16" y1="13" x2="8" y2="13" />
+                                    <line x1="16" y1="17" x2="8" y2="17" />
+                                    <polyline points="10 9 9 9 8 9" />
+                                </svg>
+                                <h3>No Quotation Generated</h3>
+                                <p>Fill in the project details and click "Generate AI Quotation" to create a
+                                    professional quotation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invoice View -->
+        <div class="view-container" id="invoiceView">
+            <div class="content-grid">
+                <!-- Invoice Input Panel -->
+                <div class="panel ai-panel">
+                    <div class="panel-header">
+                        <h2>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                <line x1="9" y1="9" x2="15" y2="9" />
+                                <line x1="9" y1="15" x2="15" y2="15" />
+                            </svg>
+                            AI Invoice Generator
+                        </h2>
+                        <span class="ai-badge">Powered by Gemini 3.2</span>
+                    </div>
+
+                    <div class="panel-content">
+                        <!-- Convert from Quotation -->
+                        <div class="convert-section">
+                            <label class="section-label">Convert from Quotation</label>
+                            <select id="quotationSelect" class="form-select">
+                                <option value="">Select a quotation to convert...</option>
+                            </select>
+                            <button class="btn-secondary btn-convert" id="convertQuotation">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="17 1 21 5 17 9" />
+                                    <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+                                    <polyline points="7 23 3 19 7 15" />
+                                    <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+                                </svg>
+                                Convert to Invoice
+                            </button>
+                        </div>
+
+                        <div class="divider">
+                            <span>OR CREATE NEW</span>
+                        </div>
+
+                        <!-- Invoice Details -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Invoice Number</label>
+                                <input type="text" id="invoiceNumber" placeholder="INV-2025-001">
+                            </div>
+                            <div class="form-group">
+                                <label>Invoice Date</label>
+                                <input type="date" id="invoiceDate">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Due Date</label>
+                                <input type="date" id="dueDate">
+                            </div>
+                            <div class="form-group">
+                                <label>Payment Terms</label>
+                                <select id="paymentTerms">
+                                    <option value="immediate">Due on Receipt</option>
+                                    <option value="net15">Net 15 Days</option>
+                                    <option value="net30">Net 30 Days</option>
+                                    <option value="net60">Net 60 Days</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Client Info -->
+                        <div class="form-group">
+                            <label>Client Name</label>
+                            <input type="text" id="invoiceClientName" placeholder="Enter client name">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Client Email</label>
+                            <input type="email" id="invoiceClientEmail" placeholder="client@example.com">
+                        </div>
+
+                        <!-- Line Items -->
+                        <div class="line-items-section">
+                            <label class="section-label">Line Items</label>
+                            <div id="lineItemsContainer"></div>
+                            <button class="btn-add-item" id="addLineItem">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="12" y1="8" x2="12" y2="16" />
+                                    <line x1="8" y1="12" x2="16" y2="12" />
+                                </svg>
+                                Add Line Item
+                            </button>
+                        </div>
+
+                        <!-- Tax & Discount -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Tax Rate (%)</label>
+                                <input type="number" id="taxRate" placeholder="18" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label>Discount (%)</label>
+                                <input type="number" id="discountRate" placeholder="0" step="0.01">
+                            </div>
+                        </div>
+
+                        <!-- Generate Invoice Button -->
+                        <button class="btn-primary btn-generate" id="generateInvoice">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                            </svg>
+                            Generate Invoice
+                            <div class="btn-shine"></div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Invoice Preview Panel -->
+                <div class="panel preview-panel">
+                    <div class="panel-header">
+                        <h2>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                            Invoice Preview
+                        </h2>
+                        <div class="header-actions">
+                            <button class="btn-icon" id="editInvoice" title="Edit">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                </svg>
+                            </button>
+                            <button class="btn-icon" id="downloadInvoicePDF" title="Download PDF">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" y1="15" x2="12" y2="3" />
+                                </svg>
+                            </button>
+                            <button class="btn-icon" id="sendInvoice" title="Send Invoice">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="22" y1="2" x2="11" y2="13" />
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="panel-content">
+                        <div class="document-preview" id="invoicePreview">
+                            <div class="preview-placeholder">
+                                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                    <line x1="9" y1="9" x2="15" y2="9" />
+                                    <line x1="9" y1="15" x2="15" y2="15" />
+                                </svg>
+                                <h3>No Invoice Generated</h3>
+                                <p>Convert a quotation or create a new invoice to get started</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History View -->
+        <div class="view-container" id="historyView">
+            <div class="history-container">
+                <div class="history-header">
+                    <h2>Document History</h2>
+                    <div class="history-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="quotations">Quotations</button>
+                        <button class="filter-btn" data-filter="invoices">Invoices</button>
+                    </div>
+                </div>
+                <div class="history-grid" id="historyGrid">
+                    <div class="history-placeholder">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                        <h3>No Documents Yet</h3>
+                        <p>Your generated quotations and invoices will appear here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Key Modal -->
+    <div class="modal" id="apiKeyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Configure AI Settings</h3>
+                <button class="modal-close" id="closeModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>To use AI features, please enter your Google Gemini API key:</p>
+                <div class="form-group">
+                    <label>Gemini API Key</label>
+                    <input type="password" id="apiKeyInput" placeholder="Enter your API key">
+                    <small>Get your free API key from <a href="https://makersuite.google.com/app/apikey"
+                            target="_blank">Google AI Studio</a></small>
+                </div>
+                <button class="btn-primary" id="saveApiKey">Save API Key</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="ai-script.js"></script>
+</body>
+
+</html>
