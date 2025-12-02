@@ -1133,3 +1133,209 @@ textarea:focus {
         box-shadow: none;
     }
 }
+
+/* ========================================
+   Pranayuv Template Styles
+   ======================================== */
+
+.pranayuv-template {
+    background: white;
+    color: #000;
+    font-family: 'Calibri', 'Arial', sans-serif;
+    padding: 0;
+    position: relative;
+    max-width: 800px; /* A4 width approx */
+    margin: 0 auto;
+    box-shadow: none; /* Remove shadow for print/pdf */
+}
+
+.pranayuv-template .top-bar {
+    height: 40px;
+    background-color: #1e3a8a; /* Dark Blue */
+    width: 100%;
+}
+
+.pranayuv-template .doc-header {
+    display: flex;
+    align-items: center;
+    padding: 20px 40px;
+    gap: 20px;
+    border-bottom: none; /* Override default */
+    margin-bottom: 0;
+}
+
+.pranayuv-template .logo-section {
+    flex-shrink: 0;
+}
+
+.pranayuv-template .logo-box {
+    width: 60px;
+    height: 60px;
+    background: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 24px;
+    color: #1e3a8a;
+    position: relative;
+}
+
+.pranayuv-template .logo-p {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    color: #0ea5e9; /* Light blue */
+    font-size: 40px;
+}
+
+.pranayuv-template .logo-v {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    color: #1e3a8a; /* Dark blue */
+    font-size: 30px;
+}
+
+.pranayuv-template .company-info h1 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #000;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pranayuv-template .tagline {
+    font-size: 14px;
+    color: #000;
+    margin-top: 5px;
+}
+
+.pranayuv-template .blue-divider {
+    height: 4px;
+    background-color: #3b82f6; /* Blue */
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.pranayuv-template .doc-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.pranayuv-template .doc-title h2 {
+    color: #2563eb; /* Blue */
+    font-size: 28px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.pranayuv-template .info-grid {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    margin-bottom: 40px;
+}
+
+.pranayuv-template .info-label {
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.pranayuv-template .client-info p,
+.pranayuv-template .date-info p {
+    font-size: 14px;
+    margin-bottom: 5px;
+    line-height: 1.4;
+    color: #000;
+}
+
+.pranayuv-template .project-details {
+    padding: 0 40px;
+    margin-bottom: 30px;
+}
+
+.pranayuv-template .project-details p {
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #000;
+}
+
+.pranayuv-template .pranayuv-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0;
+}
+
+.pranayuv-template .pranayuv-table th {
+    text-align: left;
+    color: #2563eb;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px 40px;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+    background: transparent;
+}
+
+.pranayuv-template .pranayuv-table .col-total {
+    text-align: right;
+}
+
+.pranayuv-template .pranayuv-table td {
+    padding: 20px 40px;
+    vertical-align: top;
+    border-bottom: 2px solid #000;
+    color: #000;
+}
+
+.pranayuv-template .item-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.pranayuv-template .item-list li {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.pranayuv-template .total-cell {
+    text-align: right;
+    font-size: 16px;
+}
+
+.pranayuv-template .totals-container {
+    padding: 10px 40px;
+    margin-bottom: 40px;
+}
+
+.pranayuv-template .total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+    font-weight: 700;
+    border-bottom: 1px solid #000;
+    color: #000;
+}
+
+.pranayuv-template .total-row:last-child {
+    border-bottom: 2px solid #000;
+}
+
+.pranayuv-template .grand-total-row {
+    font-size: 16px;
+}
+
+.pranayuv-template .bottom-bar {
+    height: 20px;
+    background-color: #1e3a8a;
+    width: 100%;
+    margin-top: auto;
+}
